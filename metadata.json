@@ -1,0 +1,7 @@
+{
+  "name": "Brew & Bloom Coffee",
+  "description": "A premium coffee shop application featuring AI-powered drink recommendations, intuitive ordering, and real-time delivery tracking.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
