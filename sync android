@@ -1,0 +1,5 @@
+npx cap add android
+npx cap sync
+git add android/ capacitor.config.json package-lock.json
+git commit -m "Add android platform for AppFlow"
+git push origin main
