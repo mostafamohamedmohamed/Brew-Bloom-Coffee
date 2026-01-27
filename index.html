@@ -3,8 +3,13 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2C1810">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>قهوة القاهرة | Cairo Coffee</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/924/924514.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
@@ -13,6 +18,8 @@
             background-color: #F8F4EF;
             color: #2C1810;
             overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
         }
         .font-inter { font-family: 'Inter', sans-serif; }
         .font-cairo { font-family: 'Cairo', sans-serif; }
@@ -38,6 +45,11 @@
             50% { transform: translateY(-5px); }
         }
         .animate-bounce-subtle { animation: bounce-subtle 2s infinite ease-in-out; }
+        
+        /* Disable pull-to-refresh for better app feel */
+        html, body {
+            overscroll-behavior-y: contain;
+        }
     </style>
 <script type="importmap">
 {
