@@ -21,3 +21,10 @@
     "vite": "^6.2.0"
   }
 }
+{
+  "scripts": {
+    "build": "echo 'Static web ready'",
+    "cap:sync": "npx cap sync",
+    "cap:android": "npx cap run android"
+  }
+}
