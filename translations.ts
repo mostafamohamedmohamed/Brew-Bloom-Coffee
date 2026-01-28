@@ -38,6 +38,7 @@ export const translations = {
     terms: 'الشروط والأحكام',
     privacy: 'سياسة الخصوصية',
     contactUs: 'تواصل معنا',
+    dailyDeals: 'عروض يومية',
     navHome: 'الرئيسية',
     navMenu: 'المنيو',
     navCart: 'السلة',
@@ -89,7 +90,11 @@ export const translations = {
     language: 'اللغة / Language',
     switchLang: 'English',
     sugarLevels: ['بدون', 'خفيف', 'وسط', 'زيادة', 'كنكة'],
-    sizes: { S: 'صغير', M: 'وسط', L: 'كبير' }
+    sizes: { S: 'صغير', M: 'وسط', L: 'كبير' },
+    createYourDrink: 'ابتكر مشروبك الخاص',
+    magicBrewDesc: 'صف مزاجك أو النكهات التي تحبها وسيقوم الذكاء الاصطناعي بابتكار خلطة سرية لك!',
+    magicBrewPlaceholder: 'مثلاً: شيء دافئ، قليل السكر، برائحة القرفة...',
+    brewNow: 'ابتكر خلطتي ✨'
   },
   en: {
     appName: 'Cairo Coffee',
@@ -129,6 +134,7 @@ export const translations = {
     terms: 'Terms & Conditions',
     privacy: 'Privacy Policy',
     contactUs: 'Contact Us',
+    dailyDeals: 'Daily Deals',
     navHome: 'Home',
     navMenu: 'Menu',
     navCart: 'Cart',
@@ -180,6 +186,10 @@ export const translations = {
     language: 'Language / اللغة',
     switchLang: 'العربية',
     sugarLevels: ['None', 'Light', 'Medium', 'Extra', 'Kanaka'],
-    sizes: { S: 'Small', M: 'Medium', L: 'Large' }
+    sizes: { S: 'Small', M: 'Medium', L: 'Large' },
+    createYourDrink: 'Create Your Own Drink',
+    magicBrewDesc: 'Describe your mood or the flavors you love, and our AI will create a secret blend just for you!',
+    magicBrewPlaceholder: 'E.g., Something warm, low sugar, with a hint of cinnamon...',
+    brewNow: 'Brew My Mix ✨'
   }
 };

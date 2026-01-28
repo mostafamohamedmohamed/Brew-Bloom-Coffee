@@ -2,6 +2,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '../App';
+import { COFFEE_ITEMS } from '../constants';
 
 const Profile: React.FC = () => {
   const navigate = useNavigate();
@@ -10,6 +11,9 @@ const Profile: React.FC = () => {
   const toggleLanguage = () => {
     setLang(lang === 'ar' ? 'en' : 'ar');
   };
+
+  // Mocking favorite drinks by taking a subset of available items
+  const favoriteDrinks = COFFEE_ITEMS.slice(0, 3);
 
   return (
     <div className="h-screen bg-[#F8F4EF] flex flex-col overflow-hidden">
@@ -48,6 +52,28 @@ const Profile: React.FC = () => {
            >
              {t.switchLang}
            </button>
+        </div>
+
+        {/* Favorite Drinks Section */}
+        <div className={`space-y-4 ${lang === 'ar' ? 'text-right' : 'text-left'}`}>
+          <h3 className="font-black text-[#2C1810] text-lg px-2">
+            {lang === 'ar' ? 'المشروبات المفضلة' : 'Favorite Drinks'}
+          </h3>
+          <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2">
+            {favoriteDrinks.map((drink) => (
+              <div 
+                key={drink.id} 
+                className="min-w-[140px] bg-white p-3 rounded-[28px] shadow-sm border border-[#6B4E31]/5 flex flex-col items-center gap-2"
+              >
+                <div className="w-20 h-20 rounded-2xl overflow-hidden">
+                  <img src={drink.image} className="w-full h-full object-cover" alt={drink.name} />
+                </div>
+                <p className="text-[10px] font-black text-[#2C1810] text-center truncate w-full px-1">
+                  {lang === 'ar' ? drink.name : drink.subName}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Personal Info Section */}
@@ -113,7 +139,10 @@ const Profile: React.FC = () => {
               <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" className="w-5 h-5" alt="WhatsApp" />
             </a>
           </div>
-          <p className="text-[10px] font-bold text-[#8B4513] mt-2 font-inter">© 2024 Cairo Coffee Co.</p>
+          <div className="text-center mt-2">
+            <p className="text-[10px] font-bold text-[#8B4513] font-inter">© 2024 Cairo Coffee Co.</p>
+            <p className="text-[9px] font-black text-[#6B4E31] mt-1">Created by @mostafa2025</p>
+          </div>
         </div>
       </div>
 

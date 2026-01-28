@@ -12,6 +12,7 @@ import Order from './pages/Order';
 import Payment from './pages/Payment';
 import Delivery from './pages/Delivery';
 import Profile from './pages/Profile';
+import Support from './pages/Support';
 import { CoffeeItem, OrderItem, Language } from './types';
 import { translations } from './translations';
 
@@ -87,6 +88,7 @@ const App: React.FC = () => {
             />
             <Route path="/delivery" element={<Delivery />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/support" element={<Support />} />
           </Routes>
         </div>
       </Router>

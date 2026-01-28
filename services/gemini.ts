@@ -1,7 +1,8 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
 
-const getAI = () => new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+// Always use the process.env.API_KEY directly for initialization as per guidelines
+const getAI = () => new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export const getCoffeeRecommendation = async (base64Image?: string, textPrompt?: string) => {
   const ai = getAI();
@@ -24,6 +25,7 @@ export const getCoffeeRecommendation = async (base64Image?: string, textPrompt?:
   parts.push({ text: prompt });
 
   try {
+    // Calling generateContent with the model name and contents object containing parts
     const response = await ai.models.generateContent({
       model,
       contents: { parts },
@@ -40,7 +42,9 @@ export const getCoffeeRecommendation = async (base64Image?: string, textPrompt?:
       }
     });
 
-    return JSON.parse(response.text);
+    // Access the .text property directly as it is not a method
+    const jsonStr = response.text?.trim() || '{}';
+    return JSON.parse(jsonStr);
   } catch (error) {
     console.error("Gemini Error:", error);
     return { recommendedCoffee: 'Caffe Mocha', reasoning: 'Our signature classic!' };

@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CoffeeItem } from '../types';
+import { useTranslation } from '../App';
 
 interface DetailProps {
   coffee: CoffeeItem;
@@ -10,97 +11,152 @@ interface DetailProps {
 
 const Detail: React.FC<DetailProps> = ({ coffee, onAddToCart }) => {
   const navigate = useNavigate();
+  const { t, lang } = useTranslation();
   const [selectedSize, setSelectedSize] = useState<'S' | 'M' | 'L'>('M');
-  const [sugar, setSugar] = useState(2); // 0-4
+  const [sugar, setSugar] = useState(2); 
 
   const handleBuy = () => {
     onAddToCart(coffee, selectedSize);
     navigate('/order');
   };
 
+  const sugarLabels = ['بدون', 'خفيف', 'وسط', 'زيادة', 'كنكة'];
+
   return (
-    <div className="pb-36 bg-[#F8F4EF] min-h-screen text-[#2C1810]">
-      {/* Navbar */}
-      <div className="p-6 flex justify-between items-center bg-white/80 backdrop-blur-xl sticky top-0 z-30">
-        <button onClick={() => navigate(-1)} className="text-[#2C1810] text-2xl w-10 h-10 flex items-center justify-center rounded-xl bg-[#F3F0EC]">
-          <span className="rotate-0">→</span>
+    <div className="pb-44 bg-[#FDF9F4] min-h-screen text-[#2C1810] font-cairo overflow-x-hidden">
+      {/* Dynamic Header */}
+      <div className="p-6 flex justify-between items-center bg-white/90 backdrop-blur-3xl sticky top-0 z-40 border-b border-[#6B4E31]/5 pt-14">
+        <button 
+          onClick={() => navigate(-1)} 
+          className="text-[#2C1810] text-xl w-12 h-12 flex items-center justify-center rounded-2xl bg-[#F3F0EC] transition-all active:scale-90"
+        >
+          <span className={lang === 'ar' ? 'rotate-0' : 'rotate-180'}>→</span>
         </button>
-        <h2 className="text-lg font-black">تفاصيل المشروب</h2>
-        <button className="text-[#6B4E31] text-xl w-10 h-10 flex items-center justify-center rounded-xl bg-[#F3F0EC]">❤️</button>
+        <h2 className="text-lg font-black">{t.drinkDetails}</h2>
+        <button className="text-[#6B4E31] text-xl w-12 h-12 flex items-center justify-center rounded-2xl bg-[#F3F0EC] transition-all active:scale-90">❤️</button>
       </div>
 
-      <div className="px-6 mt-6">
-        <div className="relative overflow-hidden rounded-[40px] shadow-2xl border-4 border-white aspect-square">
-          <img src={coffee.image} className="w-full h-full object-cover" alt={coffee.name} />
-          <div className="absolute bottom-6 right-6 bg-white/40 backdrop-blur-md rounded-2xl px-4 py-2 flex items-center gap-3 border border-white/20">
-            <div className="text-right">
-              <p className="text-[#2C1810] text-[10px] font-bold opacity-70">التقييم</p>
-              <p className="text-[#2C1810] text-lg font-black">{coffee.rating} ⭐</p>
+      <div className="px-6 mt-8 space-y-12">
+        {/* Hero Image Section */}
+        <div className="relative group">
+          <div className="absolute inset-0 bg-[#6B4E31]/10 blur-[80px] rounded-full scale-90 opacity-40 group-hover:opacity-60 transition-opacity" />
+          <div className="relative overflow-hidden rounded-[56px] shadow-2xl border-[8px] border-white aspect-square bg-white">
+            <img src={coffee.image} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt={coffee.name} />
+            
+            <div className={`absolute bottom-8 ${lang === 'ar' ? 'right-8' : 'left-8'} bg-white/30 backdrop-blur-2xl rounded-[32px] px-8 py-4 flex items-center gap-4 border border-white/40 shadow-2xl`}>
+              <div className={lang === 'ar' ? 'text-right' : 'text-left'}>
+                <p className="text-[#2C1810] text-[10px] font-black opacity-60 uppercase tracking-widest">التقييم</p>
+                <div className="flex items-center gap-1.5 mt-0.5">
+                  <span className="text-[#2C1810] text-2xl font-black">{coffee.rating}</span>
+                  <span className="text-yellow-500 text-base">★</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         
-        <div className="mt-8 text-right">
-          <h1 className="text-3xl font-black mb-1">{coffee.name}</h1>
-          <p className="text-[#8B4513] text-sm font-bold font-inter mb-4">{coffee.subName}</p>
+        <div className={`text-right ${lang === 'en' ? 'text-left' : ''}`}>
+          <h1 className="text-5xl font-black mb-3 text-[#2C1810] leading-tight">{lang === 'ar' ? coffee.name : coffee.subName}</h1>
+          <p className="text-[#8B4513] text-lg font-bold opacity-60 mb-8">{lang === 'ar' ? coffee.subName : coffee.name}</p>
           
-          <div className="flex gap-4 mb-8">
-            <span className="bg-white px-4 py-2 rounded-xl text-sm font-bold shadow-sm border border-[#6B4E31]/5">☕ حبوب فاخرة</span>
-            <span className="bg-white px-4 py-2 rounded-xl text-sm font-bold shadow-sm border border-[#6B4E31]/5">🥛 حليب طازج</span>
+          {/* Features Pills */}
+          <div className={`flex gap-3 mb-10 overflow-x-auto no-scrollbar pb-1 ${lang === 'en' ? 'flex-row-reverse justify-end' : ''}`}>
+             <span className="bg-[#F3F0EC] px-5 py-3 rounded-full text-[11px] font-black shadow-sm border border-black/5 whitespace-nowrap flex items-center gap-2">
+               محمص محلياً 🍎
+             </span>
+             <span className="bg-[#F3F0EC] px-5 py-3 rounded-full text-[11px] font-black shadow-sm border border-black/5 whitespace-nowrap flex items-center gap-2">
+               حليب طازج 🥛
+             </span>
+             <span className="bg-[#F3F0EC] px-5 py-3 rounded-full text-[11px] font-black shadow-sm border border-black/5 whitespace-nowrap flex items-center gap-2">
+               حبوب فاخرة ☕
+             </span>
           </div>
 
-          <h3 className="text-[#2C1810] text-lg font-black mb-3">الوصف</h3>
-          <p className="text-[#8B4513] text-sm leading-relaxed mb-8">
-            {coffee.description}
-          </p>
+          <div className="space-y-12">
+            <section>
+              <h3 className="text-[#2C1810] text-xl font-black mb-4">الوصف</h3>
+              <p className="text-[#8B4513] text-base leading-relaxed font-bold opacity-80">
+                {coffee.description}
+              </p>
+            </section>
 
-          <h3 className="text-[#2C1810] text-lg font-black mb-5">مستوى السكر</h3>
-          <div className="flex justify-between items-center bg-white p-4 rounded-2xl mb-8 shadow-sm">
-             {['بدون', 'خفيف', 'وسط', 'زيادة', 'كنكة'].map((label, idx) => (
-               <button 
-                key={idx}
-                onClick={() => setSugar(idx)}
-                className={`flex-1 text-[11px] font-black py-2 rounded-lg transition-all ${sugar === idx ? 'bg-[#6B4E31] text-white' : 'text-[#8B4513]'}`}
-               >
-                 {label}
-               </button>
-             ))}
-          </div>
+            {/* Sugar Selection Slider - Matches Screenshot */}
+            <section>
+              <h3 className="text-[#2C1810] text-xl font-black mb-6">مستوى السكر</h3>
+              <div className="relative bg-[#F3F0EC] h-16 rounded-full flex items-center px-2">
+                 {/* Sliding Indicator */}
+                 <div 
+                   className="absolute h-12 bg-white rounded-full shadow-lg transition-all duration-300 ease-out"
+                   style={{ 
+                     width: 'calc(20% - 8px)', 
+                     right: `calc(${sugar * 20}% + 4px)`,
+                     zIndex: 0
+                   }}
+                 />
+                 {sugarLabels.map((label, idx) => (
+                   <button 
+                    key={idx}
+                    onClick={() => setSugar(idx)}
+                    className={`relative z-10 flex-1 text-xs font-black transition-all duration-300 ${sugar === idx ? 'text-[#2C1810]' : 'text-[#8B4513]/40'}`}
+                   >
+                     {label}
+                   </button>
+                 ))}
+              </div>
+            </section>
 
-          <h3 className="text-[#2C1810] text-lg font-black mb-5">اختر الحجم</h3>
-          <div className="flex gap-4">
-            {(['S', 'M', 'L'] as const).map(size => (
-              <button 
-                key={size}
-                onClick={() => setSelectedSize(size)}
-                className={`flex-1 py-4 rounded-2xl border-2 text-sm font-black transition-all ${
-                  selectedSize === size 
-                    ? 'bg-[#6B4E31] border-[#6B4E31] text-white shadow-xl' 
-                    : 'border-[#6B4E31]/10 text-[#8B4513] bg-white hover:border-[#6B4E31]/30'
-                }`}
-              >
-                {size === 'S' ? 'صغير' : size === 'M' ? 'وسط' : 'كبير'}
-              </button>
-            ))}
+            {/* Size Selection Buttons - Matches Screenshot Styling */}
+            <section>
+              <h3 className="text-[#2C1810] text-xl font-black mb-6">اختر الحجم</h3>
+              <div className="flex gap-4">
+                {(['L', 'M', 'S'] as const).map(size => (
+                  <button 
+                    key={size}
+                    onClick={() => setSelectedSize(size)}
+                    className={`flex-1 py-5 rounded-[40px] text-lg font-black transition-all border-2 ${
+                      selectedSize === size 
+                        ? 'bg-[#6B4E31] border-[#6B4E31] text-white shadow-xl' 
+                        : 'bg-[#F3F0EC] border-transparent text-[#2C1810]/60'
+                    }`}
+                  >
+                    {size === 'S' ? 'صغير' : size === 'M' ? 'وسط' : 'كبير'}
+                  </button>
+                ))}
+              </div>
+            </section>
           </div>
         </div>
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white p-8 pb-10 flex justify-between items-center z-40 rounded-t-[48px] shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
-        <div className="flex flex-col text-right">
-          <span className="text-[#8B4513] text-xs font-bold mb-1">السعر الإجمالي</span>
-          <div className="flex items-baseline gap-1">
-            <span className="text-[#2C1810] text-3xl font-black">{coffee.price}</span>
-            <span className="text-[#6B4E31] font-black text-lg">ج.م</span>
+      {/* Luxury Bottom Checkout Bar - Matches Screenshot Exactly */}
+      <div className="fixed bottom-6 left-6 right-6 max-w-md mx-auto z-50 pointer-events-none">
+        <div className="bg-white/95 backdrop-blur-2xl p-6 rounded-[48px] shadow-[0_20px_50px_rgba(0,0,0,0.12)] border border-white flex justify-between items-center pointer-events-auto">
+          {/* Order Button on the Left */}
+          <button 
+            onClick={handleBuy}
+            className="bg-[#6B4E31] text-white px-10 py-5 rounded-[32px] font-black text-xl shadow-2xl shadow-[#6B4E31]/30 active:scale-95 transition-all hover:bg-[#5a4128]"
+          >
+            اطلب الآن
+          </button>
+
+          {/* Price Info on the Right */}
+          <div className="flex flex-col text-right">
+            <span className="text-[#8B4513] text-[11px] font-black opacity-60 mb-0.5">السعر الإجمالي</span>
+            <div className="flex items-baseline gap-1 justify-end">
+              <span className="text-[#2C1810] text-4xl font-black tracking-tighter">{coffee.price.toFixed(2)}</span>
+              <span className="text-[#6B4E31] font-black text-xs">ج.م</span>
+            </div>
           </div>
         </div>
-        <button 
-          onClick={handleBuy}
-          className="bg-[#6B4E31] text-white px-14 py-5 rounded-2xl font-black text-lg hover:shadow-2xl transition-all active:scale-95"
-        >
-          اطلب الآن
-        </button>
+
+        {/* Blueprint-style annotation overlay if needed, but here we just implement the UI */}
+        <div className="absolute inset-0 border-2 border-dashed border-blue-400/0 rounded-[48px] pointer-events-none" />
       </div>
+      
+      <style>{`
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      `}</style>
     </div>
   );
 };

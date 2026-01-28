@@ -84,7 +84,7 @@ export const PROMO_SLIDES = [
     id: 2,
     title: 'خصم ٣٠٪ على مزيج الخريف الجديد',
     enTitle: '30% Off New Autumn Blend',
-    image: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=1200&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=1200&auto=format&fit=crop',
     badge: 'لفترة محدودة',
   }
 ];
